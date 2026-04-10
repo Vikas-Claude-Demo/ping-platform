@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "public": true,
+  "name": "ping-platform",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/$1" }
+  ],
+  "redirects": [
+    { "source": "/", "destination": "/frontend/dist/index.html", "permanent": false }
+  ]
+}
