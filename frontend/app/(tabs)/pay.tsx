@@ -434,7 +434,13 @@ export default function PayScreen() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: Colors.bgWhite },
+  safe: {
+    flex: 1,
+    backgroundColor: Colors.bgWhite,
+    width: '100%',
+    maxWidth: 600,
+    alignSelf: 'center',
+  },
 
   // ── Success screen ──────────────────────────────────────────
   successScreen: {
@@ -655,16 +661,36 @@ const styles = StyleSheet.create({
   presetBtnActive: { borderColor: Colors.brand, backgroundColor: '#EBF4FF' },
   presetText: { fontSize: 14, fontWeight: '600', color: Colors.textSecondary },
   presetTextActive: { color: Colors.brand },
-  keypad: { paddingHorizontal: Spacing.xl, paddingBottom: Spacing.sm },
-  keyRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
+  keypad: {
+    paddingHorizontal: Spacing.lg,
+    paddingBottom: Spacing.sm,
+    width: '100%',
+    maxWidth: 500,
+    alignSelf: 'center',
+  },
+  keyRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 2,
+  },
   keyBtn: {
-    width: (width - Spacing.xl * 2) / 3,
-    height: 60,
+    flex: 1,
+    height: 65,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  keyText: { fontSize: 26, fontWeight: '500', color: Colors.textPrimary },
-  ctaContainer: { paddingHorizontal: Spacing.lg, paddingBottom: Spacing.lg },
+  keyText: {
+    fontSize: 26,
+    fontWeight: '500',
+    color: Colors.textPrimary,
+  },
+  ctaContainer: {
+    paddingHorizontal: Spacing.lg,
+    paddingBottom: Spacing.lg,
+    width: '100%',
+    maxWidth: 500,
+    alignSelf: 'center',
+  },
   ctaButton: {
     flexDirection: 'row',
     backgroundColor: Colors.brand,
