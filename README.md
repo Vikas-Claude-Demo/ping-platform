@@ -7,7 +7,7 @@ Ping is a mobile-first payment platform that enables Mexican travelers to spend 
 ---
 
 ## 🌍 Investor Demo Focus
-This build focuses on the **Mexico → United States** corridor, allowing a user (Luipa) to load Pesos (MXN) via Stripe, receive a virtual USD Visa card, and perform a simulated tap-to-pay transaction at a US merchant.
+This build focuses on the **Mexico → United States** corridor, allowing a user (Luipa) to walk through a complete onboarding flow, load Pesos (MXN) via Stripe, receive a virtual USD Visa card, and perform a simulated tap-to-pay transaction.
 
 ---
 
@@ -15,7 +15,7 @@ This build focuses on the **Mexico → United States** corridor, allowing a user
 
 | Feature | Details | Status |
 |---|---|---|
-| **Demo Account Login** | Pre-seeded user, skips auth flow for instant demo starts | ✅ Included |
+| **Premium Onboarding** | Redesigned Registration & KYC screens with stunning fintech aesthetics | ✅ Included |
 | **Wallet Home** | Real-time USD balance, virtual card preview, and recent activity | ✅ Included |
 | **Load Money Flow** | MXN entry, live FX conversion, Stripe sandbox charge, success animation | ✅ Included |
 | **Stripe Issuing Sandbox** | Real virtual Visa card issued via Stripe Issuing Test Mode | ✅ Included |
@@ -28,15 +28,15 @@ This build focuses on the **Mexico → United States** corridor, allowing a user
 
 ## ⏱️ The 90-Second Demo Flow
 
-1.  **0:00** — Open Ping. Wallet shows **$0 USD**.
-2.  **0:10** — Tap **Load Money**. Enter `5,000 MXN`. See live FX rate.
-3.  **0:20** — Confirm with **Face ID**. Real Stripe sandbox charge executes.
-4.  **0:25** — Balance updates to **$290 USD** with subtle confetti.
-5.  **0:30** — Tap the **Virtual Card**. It flips to show the Visa details.
-6.  **0:40** — Tap **Tap to Pay**. Hold near simulated reader. Haptic vibration + Beep.
-7.  **0:50** — Transaction posts: **$12.50 at Starbucks**. Balance updates to **$277.50**.
-8.  **1:00** — **Push Notification** slides in from the top.
-9.  **1:10** — Open **Activity**. The Starbucks transaction is at the top.
+1.  **0:00** — Open Ping. Start with a premium **Welcome** screen.
+2.  **0:10** — Walk through the **Verification** flow (Identity + Funding).
+3.  **0:20** — Land on Wallet dashboard. Balance shows **$0 USD**.
+4.  **0:30** — Tap **Load Money**. Enter `5,000 MXN`. Real Stripe sandbox charge executes.
+5.  **0:40** — Balance updates to **$290 USD** with subtle confetti.
+6.  **0:50** — Tap the **Virtual Card**. It flips to show the Visa details.
+7.  **1:00** — Tap **Tap to Pay**. Hold near simulated reader. Haptic vibration + Beep.
+8.  **1:10** — Transaction posts: **$12.50 at Starbucks**. Balance updates to **$277.50**.
+9.  **1:20** — **Push Notification** slides in. Check **Activity** to see the final ledger.
 
 ---
 
@@ -63,15 +63,10 @@ To issue a real virtual test card to the app, run the seed script from the proje
 export STRIPE_SECRET_KEY=sk_test_YOUR_SECRET_KEY
 node backend/scripts/seed-demo.js
 ```
-*This will generate `frontend/constants/demo-data.json` with your real Stripe sandbox card details.*
 
-### 4. Run the App
-```bash
-cd frontend
-npm install
-npm start
-```
-Scan the QR code with the **Expo Go** app to run the demo on your iPhone.
+### 4. Android Build (APK)
+You can download the latest Android build directly for your device:
+👉 **[Download Ping Android APK](https://expo.dev/accounts/dhaval29/projects/ping-platform/builds/0fd49952-ec11-42fb-adf0-60ffb2948b70)**
 
 ---
 
@@ -81,16 +76,16 @@ Scan the QR code with the **Expo Go** app to run the demo on your iPhone.
 - **Navigation:** Expo Router
 - **Payments:** Stripe Payments (Sandbox) + Stripe Issuing (Sandbox)
 - **Animations:** React Native Reanimated + Animated API
-- **Design:** Fintech-grade custom UI with Haptic Feedback
+- **Haptics:** expo-haptics for tactile interaction feedback
 
 ---
 
 ## 📁 Key Files
+- `frontend/app/(auth)/index.tsx` — Premium Onboarding
 - `frontend/app/(tabs)/index.tsx` — Main Wallet Dashboard
 - `frontend/app/load-money.tsx` — Stripe Load Flow
 - `frontend/app/tap-to-pay.tsx` — NFC Simulator
 - `frontend/components/VirtualCard.tsx` — Flippable Visa Card
-- `backend/scripts/seed-demo.js` — Stripe Issuing Setup Script
 
 ---
 
@@ -117,6 +112,7 @@ Scan the QR code with the **Expo Go** app to run the demo on your iPhone.
 |---|---|---|---|
 | 1.0 | April 10, 2026 | Brilworks | Initial SOW + TRD |
 | 2.0 | April 27, 2026 | Brilworks | Lean Demo Build for Fundraise complete |
+| 2.1 | April 27, 2026 | Brilworks | Redesigned Auth/KYC + Android APK build |
 
 ---
 
