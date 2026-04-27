@@ -46,10 +46,13 @@ export default function LoadMoneyModal() {
         body: new URLSearchParams({
           amount: amountInCents.toString(),
           currency: 'mxn',
-          payment_method: 'pm_card_visa', // Stripe test card
+          payment_method: 'pm_card_visa', // Standard test card
           confirm: 'true',
           description: 'Ping Investor Demo - Load Money',
-          return_url: 'https://example.com/return'
+          // Use this to help avoid redirect-based 3DS in some test scenarios
+          'payment_method_options[card][request_three_d_secure]': 'any', 
+          'automatic_payment_methods[enabled]': 'true',
+          'automatic_payment_methods[allow_redirects]': 'never',
         }).toString(),
       });
 
