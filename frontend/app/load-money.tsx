@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, Animated } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, Animated, ScrollView, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import { Colors, Spacing, Radii, Typography } from '../constants/Theme';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -87,20 +87,26 @@ export default function LoadMoneyModal() {
 
   if (isSuccess) {
     return (
-      <View style={[styles.container, styles.centerAll]}>
-        <Animated.View style={{ transform: [{ scale: scaleAnim }], marginBottom: 16 }}>
-          <Text style={{ fontSize: 60 }}>🎉</Text>
-        </Animated.View>
-        <MaterialCommunityIcons name="check-circle" size={80} color={Colors.success} />
-        <Text style={styles.successTitle}>Load Successful!</Text>
-        <Text style={styles.successSub}>${usdAmount.toFixed(2)} USD added to your wallet.</Text>
-      </View>
+      <SafeAreaView style={styles.safe}>
+        <View style={[styles.container, styles.centerAll]}>
+          <Animated.View style={{ transform: [{ scale: scaleAnim }], marginBottom: 16 }}>
+            <Text style={{ fontSize: 60 }}>🎉</Text>
+          </Animated.View>
+          <MaterialCommunityIcons name="check-circle" size={80} color={Colors.success} />
+          <Text style={styles.successTitle}>Load Successful!</Text>
+          <Text style={styles.successSub}>${usdAmount.toFixed(2)} USD added to your wallet.</Text>
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <SafeAreaView style={styles.safe}>
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
           <MaterialCommunityIcons name="close" size={24} color={Colors.textPrimary} />
         </TouchableOpacity>
@@ -108,37 +114,43 @@ export default function LoadMoneyModal() {
         <View style={{ width: 24 }} />
       </View>
 
-      <View style={styles.content}>
-        <Text style={styles.label}>Amount to load (MXN)</Text>
-        <View style={styles.inputContainer}>
-          <Text style={styles.currencyPrefix}>$</Text>
-          <TextInput
-            style={styles.input}
-            value={amount}
-            onChangeText={setAmount}
-            keyboardType="decimal-pad"
-            placeholder="0.00"
-            autoFocus
-          />
-          <Text style={styles.currencySuffix}>MXN</Text>
-        </View>
+        <ScrollView 
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.content}>
+            <Text style={styles.label}>Amount to load (MXN)</Text>
+            <View style={styles.inputContainer}>
+              <Text style={styles.currencyPrefix}>$</Text>
+              <TextInput
+                style={styles.input}
+                value={amount}
+                onChangeText={setAmount}
+                keyboardType="decimal-pad"
+                placeholder="0.00"
+                autoFocus
+              />
+              <Text style={styles.currencySuffix}>MXN</Text>
+            </View>
 
-        <View style={styles.quoteCard}>
-          <View style={styles.quoteRow}>
-            <Text style={styles.quoteLabel}>Exchange Rate</Text>
-            <Text style={styles.quoteValue}>1 MXN = {exchangeRate} USD</Text>
+            <View style={styles.quoteCard}>
+              <View style={styles.quoteRow}>
+                <Text style={styles.quoteLabel}>Exchange Rate</Text>
+                <Text style={styles.quoteValue}>1 MXN = {exchangeRate} USD</Text>
+              </View>
+              <View style={styles.quoteRow}>
+                <Text style={styles.quoteLabel}>Fee</Text>
+                <Text style={styles.quoteValue}>$0.00</Text>
+              </View>
+              <View style={styles.divider} />
+              <View style={styles.quoteRow}>
+                <Text style={styles.quoteLabelTotal}>You receive</Text>
+                <Text style={styles.quoteValueTotal}>${usdAmount.toFixed(2)} USD</Text>
+              </View>
+            </View>
           </View>
-          <View style={styles.quoteRow}>
-            <Text style={styles.quoteLabel}>Fee</Text>
-            <Text style={styles.quoteValue}>$0.00</Text>
-          </View>
-          <View style={styles.divider} />
-          <View style={styles.quoteRow}>
-            <Text style={styles.quoteLabelTotal}>You receive</Text>
-            <Text style={styles.quoteValueTotal}>${usdAmount.toFixed(2)} USD</Text>
-          </View>
-        </View>
-      </View>
+        </ScrollView>
 
       <View style={styles.footer}>
         <TouchableOpacity
@@ -155,13 +167,25 @@ export default function LoadMoneyModal() {
             </View>
           )}
         </TouchableOpacity>
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.bgBase },
+  safe: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    alignItems: 'center',
+  },
+  container: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    width: '100%',
+    maxWidth: 600,
+  },
+  scrollView: { flex: 1 },
+  scrollContent: { flexGrow: 1 },
   centerAll: { justifyContent: 'center', alignItems: 'center', padding: Spacing.xl },
   header: {
     flexDirection: 'row',
@@ -200,6 +224,11 @@ const styles = StyleSheet.create({
     padding: Spacing.md,
     borderWidth: 1,
     borderColor: Colors.border,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
   },
   quoteRow: {
     flexDirection: 'row',
@@ -207,10 +236,10 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   quoteLabel: { color: Colors.textSecondary, fontSize: 14 },
-  quoteValue: { color: Colors.textPrimary, fontSize: 14, fontWeight: '500' },
+  quoteValue: { color: Colors.textPrimary, fontSize: 14, fontWeight: '600' },
   divider: { height: 1, backgroundColor: Colors.border, marginVertical: Spacing.sm },
   quoteLabelTotal: { color: Colors.textPrimary, fontSize: 16, fontWeight: '700' },
-  quoteValueTotal: { color: Colors.success, fontSize: 18, fontWeight: '800' },
+  quoteValueTotal: { color: Colors.brandLight, fontSize: 18, fontWeight: '800' },
 
   footer: {
     padding: Spacing.lg,
@@ -221,19 +250,25 @@ const styles = StyleSheet.create({
   },
   confirmBtn: {
     backgroundColor: Colors.brandLight,
-    paddingVertical: 16,
-    borderRadius: Radii.full,
+    paddingVertical: 18,
+    borderRadius: Radii.xl,
     alignItems: 'center',
+    shadowColor: Colors.brandLight,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 5,
   },
   btnContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 12,
   },
   confirmBtnText: {
     color: '#fff',
     fontSize: 18,
     fontWeight: '700',
+    letterSpacing: 0.5,
   },
 
   successTitle: {

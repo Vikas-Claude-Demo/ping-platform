@@ -12,7 +12,8 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <View style={styles.appBar}>
+      <View style={styles.container}>
+        <View style={styles.appBar}>
         <View style={styles.appBarLeft}>
           <View style={styles.avatarCircle}>
             <Text style={styles.avatarText}>L</Text>
@@ -96,13 +97,24 @@ export default function HomeScreen() {
           )}
         </View>
 
-      </ScrollView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: Colors.bgBase },
+  safe: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    alignItems: 'center',
+  },
+  container: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    width: '100%',
+    maxWidth: 600,
+  },
   appBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',

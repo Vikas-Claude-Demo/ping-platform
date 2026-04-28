@@ -99,8 +99,9 @@ export default function NotificationsScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
-      {/* Header */}
-      <View style={styles.header}>
+      <View style={styles.container}>
+        {/* Header */}
+        <View style={styles.header}>
         <TouchableOpacity id="notif-back-btn" onPress={() => router.back()} style={styles.backBtn}>
           <MaterialCommunityIcons name="arrow-left" size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
@@ -148,7 +149,8 @@ export default function NotificationsScreen() {
             )}
           </>
         )}
-      </ScrollView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -176,7 +178,17 @@ function NotifCard({ notif, onPress }: { notif: Notification; onPress: () => voi
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: Colors.bgBase },
+  safe: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    alignItems: 'center',
+  },
+  container: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    width: '100%',
+    maxWidth: 600,
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',

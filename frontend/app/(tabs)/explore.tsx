@@ -96,7 +96,8 @@ export default function ExploreScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
-      {/* App bar */}
+      <View style={styles.container}>
+        {/* App bar */}
       <View style={styles.appBar}>
         <Text style={styles.appBarTitle}>Explore</Text>
       </View>
@@ -204,13 +205,24 @@ export default function ExploreScreen() {
             <Text style={styles.ctaBannerBtnText}>See Rates</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: Colors.bgBase },
+  safe: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    alignItems: 'center',
+  },
+  container: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    width: '100%',
+    maxWidth: 600,
+  },
   appBar: {
     backgroundColor: Colors.bgWhite,
     paddingHorizontal: Spacing.lg,

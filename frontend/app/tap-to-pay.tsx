@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated, SafeAreaView } from 'react-native';
 import { Colors, Spacing, Radii, Typography } from '../constants/Theme';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -59,7 +59,8 @@ export default function TapToPayModal() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.safe}>
+      <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
           <MaterialCommunityIcons name="close" size={24} color={Colors.textPrimary} />
@@ -100,12 +101,23 @@ export default function TapToPayModal() {
           <Text style={styles.hint}>Tap the icon to simulate NFC</Text>
         )}
       </View>
-    </View>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#1E293B' },
+  safe: { 
+    flex: 1, 
+    backgroundColor: '#1E293B',
+    alignItems: 'center',
+  },
+  container: { 
+    flex: 1, 
+    backgroundColor: '#1E293B',
+    width: '100%',
+    maxWidth: 600,
+  },
   header: {
     padding: Spacing.lg,
     paddingTop: Spacing.xl,

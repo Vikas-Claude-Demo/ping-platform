@@ -9,7 +9,8 @@ export default function HistoryScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
-      {/* Header */}
+      <View style={styles.container}>
+        {/* Header */}
       <View style={styles.appBar}>
         <Text style={styles.appBarTitle}>Activity</Text>
         <TouchableOpacity style={styles.filterBtn}>
@@ -54,13 +55,24 @@ export default function HistoryScreen() {
             })}
           </View>
         )}
-      </ScrollView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: Colors.bgBase },
+  safe: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    alignItems: 'center',
+  },
+  container: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    width: '100%',
+    maxWidth: 600,
+  },
   appBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',

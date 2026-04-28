@@ -63,7 +63,8 @@ export default function RatesScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scroll}>
 
         {/* Info banner */}
         <View style={styles.banner}>
@@ -156,13 +157,24 @@ export default function RatesScreen() {
             Ping charges no hidden fees beyond the displayed transfer fee.
           </Text>
         </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: Colors.bgBase },
+  safe: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    alignItems: 'center',
+  },
+  container: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    width: '100%',
+    maxWidth: 600,
+  },
   scroll: { padding: Spacing.lg, paddingBottom: Spacing.xxl, gap: Spacing.md },
 
   banner: {

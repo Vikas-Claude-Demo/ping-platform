@@ -110,7 +110,8 @@ export default function NetworkScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scroll}>
 
         {/* System status strip */}
         <View style={styles.statusStrip}>
@@ -222,13 +223,24 @@ export default function NetworkScreen() {
             Limits apply per Ping account tier and destination rail policy.
           </Text>
         </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: Colors.bgBase },
+  safe: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    alignItems: 'center',
+  },
+  container: { 
+    flex: 1, 
+    backgroundColor: Colors.bgBase,
+    width: '100%',
+    maxWidth: 600,
+  },
   scroll: { padding: Spacing.lg, paddingBottom: Spacing.xxl, gap: Spacing.md },
 
   statusStrip: {
